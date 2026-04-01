@@ -456,6 +456,12 @@ footer{background:#2e2929;padding:2.75rem 3rem;display:grid;grid-template-column
   .btn-primary, .btn-sage { padding: 0.75rem 1.5rem; font-size: 0.75rem; }
   .stitle { font-size: 1.55rem; }
 }
+
+/* ── LATEST VIDEOS PREVIEW ── */
+.latest-videos { background: var(--white); padding: 4rem 3rem; }
+.latest-videos-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.25rem; flex-wrap: wrap; gap: 1rem; }
+.latest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+@media(max-width:900px) { .latest-grid { grid-template-columns: 1fr; } .latest-videos { padding: 3rem 1.5rem; } .latest-videos-head { flex-direction: column; align-items: flex-start; } }
 </style>
 </head>
 <body>
@@ -469,6 +475,7 @@ footer{background:#2e2929;padding:2.75rem 3rem;display:grid;grid-template-column
     <li><a href="#about">About</a></li>
     <li><a href="#topics">Topics</a></li>
     <li><a href="#products">Wellness Shop</a></li>
+    <li><a href="#videos">Videos</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#newsletter" class="nav-cta">Join the Chat</a></li>
   </ul>
@@ -554,6 +561,28 @@ footer{background:#2e2929;padding:2.75rem 3rem;display:grid;grid-template-column
     <span class="mitem">Lifestyle Medicine<span class="dot"></span></span>
   </div>
 </div>
+
+
+<!-- LATEST 3 VIDEOS PREVIEW -->
+<section class="latest-videos" id="latest-videos">
+  <div class="latest-videos-head">
+    <div>
+      <div class="slabel reveal">Fresh Content</div>
+      <h2 class="stitle reveal rd1">Latest <em>videos</em></h2>
+    </div>
+    <a href="#videos" class="btn-ghost reveal" style="color:var(--rose);">
+      View all videos
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <!-- Skeleton -->
+  <div class="yt-skeleton latest-skeleton" id="latestSkeleton">
+    <div class="yt-skel-card"><div class="yt-skel-thumb"></div><div class="yt-skel-body"><div class="yt-skel-line"></div><div class="yt-skel-line short"></div></div></div>
+    <div class="yt-skel-card"><div class="yt-skel-thumb"></div><div class="yt-skel-body"><div class="yt-skel-line"></div><div class="yt-skel-line short"></div></div></div>
+    <div class="yt-skel-card"><div class="yt-skel-thumb"></div><div class="yt-skel-body"><div class="yt-skel-line"></div><div class="yt-skel-line short"></div></div></div>
+  </div>
+  <div class="yt-grid latest-grid" id="latestGrid" style="display:none;"></div>
+</section>
 
 <!-- ABOUT -->
 <section class="about" id="about">
@@ -699,13 +728,13 @@ footer{background:#2e2929;padding:2.75rem 3rem;display:grid;grid-template-column
 </section>
 
 <!-- YOUTUBE VIDEOS -->
-<section class="videos" id="videos" style="display:none;">
+<section class="videos" id="videos">
   <div class="videos-head">
     <div>
       <div class="slabel reveal">Latest From Us</div>
       <h2 class="stitle reveal rd1">Watch &amp; <em>learn</em></h2>
     </div>
-    <a href="#" id="ytChannelLink" target="_blank" class="btn-ghost" style="color:var(--rose);">
+    <a href="https://www.youtube.com/@Clinically_Clear01" id="ytChannelLink" target="_blank" class="btn-ghost" style="color:var(--rose);">
       View Full Channel
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -733,14 +762,14 @@ footer{background:#2e2929;padding:2.75rem 3rem;display:grid;grid-template-column
   <!-- Video grid (populated by JS) -->
   <div class="yt-grid" id="ytGrid" style="display:none;"></div>
 
-  <a href="#" id="ytViewAll" target="_blank" class="yt-view-all" style="display:none;">
+  <a href="https://www.youtube.com/@Clinically_Clear01" id="ytViewAll" target="_blank" class="yt-view-all" style="display:none;">
     See all videos on YouTube
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </a>
 </section>
 
 <!-- YouTube Modal Player -->
-<div class="yt-modal" id="ytModal" style="display:none;" onclick="closeModal(event)">
+<div class="yt-modal" id="ytModal" onclick="closeModal(event)">
   <div class="yt-modal-inner">
     <button class="yt-modal-close" onclick="closeYTModal()">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -944,9 +973,9 @@ function handleSubscribe(){
 }
 
 // ── YOUTUBE CONFIG ──────────────────────────────────────────────
-const YT_API_KEY    = '';        // Paste your YouTube Data API v3 key here
-const YT_CHANNEL_ID = '';        // Paste your Channel ID here (e.g. UCxxxxxxxxxx)
-const YT_MAX_RESULTS = 6;        // How many videos to show
+const YT_API_KEY    = 'AIzaSyAW6oPFmeysSjbIBpTB-wAoUypuvZfLBXo';
+const YT_CHANNEL_ID = 'UCNAOZGYsy6KbQruOD6MP2dg';
+const YT_MAX_RESULTS = 10;       // Show all videos in video section
 // ────────────────────────────────────────────────────────────────
 
 const YT_CONFIGURED = YT_API_KEY && YT_CHANNEL_ID;
@@ -1087,6 +1116,76 @@ async function loadYouTubeVideos() {
 }
 
 loadYouTubeVideos();
+
+async function loadLatestVideos() {
+  const skeleton = document.getElementById('latestSkeleton');
+  const grid = document.getElementById('latestGrid');
+  if (!YT_CONFIGURED) { skeleton.style.display = 'none'; return; }
+
+  try {
+    const chanRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${YT_CHANNEL_ID}&key=${YT_API_KEY}`
+    );
+    const chanData = await chanRes.json();
+    const uploadsId = chanData.items[0].contentDetails.relatedPlaylists.uploads;
+
+    const plRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsId}&maxResults=3&key=${YT_API_KEY}`
+    );
+    const plData = await plRes.json();
+    if (!plData.items?.length) throw new Error('No videos');
+
+    const videoIds = plData.items.map(i => i.snippet.resourceId.videoId).join(',');
+    const vidRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=statistics,contentDetails&id=${videoIds}&key=${YT_API_KEY}`
+    );
+    const vidData = await vidRes.json();
+    const detailMap = {};
+    (vidData.items || []).forEach(v => { detailMap[v.id] = v; });
+
+    grid.innerHTML = plData.items.map(item => {
+      const s = item.snippet;
+      const vid = s.resourceId.videoId;
+      const det = detailMap[vid] || {};
+      const thumb = (s.thumbnails.maxres || s.thumbnails.high || s.thumbnails.medium || s.thumbnails.default).url;
+      const dur = formatDuration(det.contentDetails?.duration || '');
+      const views = formatViews(det.statistics?.viewCount || '');
+      const date = formatDate(s.publishedAt);
+      const title = s.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return `
+        <div class="yt-card reveal" onclick="openYTModal('${vid}')">
+          <div class="yt-thumb">
+            <img src="${thumb}" alt="${title}" loading="lazy">
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="12" fill="rgba(253,250,246,0.95)"/>
+                <path d="M10 8.5l6 3.5-6 3.5V8.5z" fill="var(--rose)"/>
+              </svg>
+            </div>
+            ${dur ? `<span class="yt-duration">${dur}</span>` : ''}
+          </div>
+          <div class="yt-info">
+            <h4>${title}</h4>
+            <div class="yt-meta">
+              <span class="yt-views">${views}</span>
+              <span class="yt-date">${date}</span>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+    skeleton.style.display = 'none';
+    grid.style.display = 'grid';
+    grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  } catch(err) {
+    skeleton.style.display = 'none';
+    console.error('Latest videos error:', err);
+  }
+}
+
+loadLatestVideos();
+
 
 </script>
 <script src="https://link.arcaffiliates.com/js/form_embed.js"></script>
